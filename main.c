@@ -191,8 +191,8 @@ int check_player_position(int rows, int cols, int board[rows][cols], int curr_ro
  * -- starts here
  * V
  * X | X | X |   
- * 	 |   |   |   
- * 	 |   |   |   
+ *   |   |   |   
+ *   |   |   |   
  */
 int check_player_position_horizontal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	int res = 0;
@@ -216,8 +216,8 @@ int check_player_position_horizontal(int rows, int cols, int board[rows][cols], 
  * ex:
  *
  *   |   | X |   <- starts here
- * 	 |   | X |   
- * 	 |   | X |   
+ *   |   | X |   
+ *   |   | X |   
  */
 int check_player_position_vertical(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	int res = 0;
@@ -243,8 +243,8 @@ int check_player_position_vertical(int rows, int cols, int board[rows][cols], in
  * -- starts here
  * V
  * X |   |   |   
- * 	 | X |   |   
- * 	 |   | X |   
+ *   | X |   |   
+ *   |   | X |   
  */
 int check_player_position_diagonal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	int res = 0;
@@ -268,7 +268,7 @@ int check_player_position_diagonal(int rows, int cols, int board[rows][cols], in
  * ex:
  *
  *   |   | X |   <- starts here
- * 	 | X |   |   
+ *   | X |   |   
  * X |   |   |   
  */
 int check_player_position_diagonal_reverse(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
