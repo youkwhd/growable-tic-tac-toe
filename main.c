@@ -6,7 +6,7 @@
 #define BOARD_ROWS 3
 #define BOARD_COLS 3
 
-/* how many boards to check
+/* how many tiles to check
  * the classic checks for only 3 tiles.
  */
 #define BOARD_CHECK_RANGE 3 
