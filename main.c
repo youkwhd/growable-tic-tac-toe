@@ -177,8 +177,8 @@ int check_player_position(int rows, int cols, int board[rows][cols], int curr_ro
 	};
 
 	for (int i = 0; i < 4; i++) {
-		int found = check_func[i](rows, cols, board, curr_row, curr_col, player, check_range);
-		if (found) return 1; 
+		int found_solution = check_func[i](rows, cols, board, curr_row, curr_col, player, check_range);
+		if (found_solution) return 1; 
 	}
 
 	return 0;
