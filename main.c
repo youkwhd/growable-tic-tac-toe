@@ -194,20 +194,16 @@ int check_player_position(int rows, int cols, int board[rows][cols], int curr_ro
  *   |   |   |   
  */
 int check_player_position_horizontal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
-	int result = 0;
-
 	for (int i = 0; i < check_range; i++) { 
-		// check if array selection is out-of-index
-		if (curr_col + i >= cols) {
-			result = 0;
-			break;
+		/* checks if array selection is out-of-index, and
+		 * also checking if next tile is player or not
+		 */
+		if (curr_col + i >= cols || board[curr_row][curr_col + i] != player) {
+			return 0;
 		}
-
-		result = board[curr_row][curr_col + i] == player;
-		if (!result) break;
 	}
 
-	return result;
+	return 1;
 }
 
 /* this function will check vertically.
@@ -219,20 +215,13 @@ int check_player_position_horizontal(int rows, int cols, int board[rows][cols], 
  *   |   | X |   
  */
 int check_player_position_vertical(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
-	int result = 0;
-
 	for (int i = 0; i < check_range; i++) { 
-		// check if array selection is out-of-index
-		if (curr_row + i >= rows) {
-			result = 0;
-			break;
+		if (curr_row + i >= rows || board[curr_row + i][curr_col] != player) {
+			return 0;
 		}
-
-		result = board[curr_row + i][curr_col] == player;
-		if (!result) break;
 	}
 
-	return result;
+	return 1;
 }
 
 /* this function will check diagonally.
@@ -246,20 +235,14 @@ int check_player_position_vertical(int rows, int cols, int board[rows][cols], in
  *   |   | X |   
  */
 int check_player_position_diagonal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
-	int result = 0;
-
 	for (int i = 0; i < check_range; i++) { 
-		// check if array selection is out-of-index
-		if (curr_row + i >= rows || curr_col + i >= cols) {
-			result = 0;
-			break;
+		// check if array selection is out-of-index & next tile is player or not
+		if ((curr_row + i >= rows || curr_col + i >= cols) || (board[curr_row + i][curr_col + i] != player)) {
+			return 0;
 		}
-
-		result = board[curr_row + i][curr_col + i] == player;
-		if (!result) break;
 	}
 
-	return result;
+	return 1;
 }
 
 /* this function will check diagonally BUT in reverse.
@@ -271,18 +254,11 @@ int check_player_position_diagonal(int rows, int cols, int board[rows][cols], in
  * X |   |   |   
  */
 int check_player_position_diagonal_reverse(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
-	int result = 0;
-
 	for (int i = 0; i < check_range; i++) { 
-		// check if array selection is out-of-index
-		if (curr_row + i >= rows || curr_col - i < 0) {
-			result = 0;
-			break;
+		if ((curr_row + i >= rows || curr_col - i < 0) || (board[curr_row + i][curr_col - i] != player)) {
+			return 0;
 		}
-
-		result = board[curr_row + i][curr_col - i] == player;
-		if (!result) break;
 	}
 
-	return result;
+	return 1;
 }
