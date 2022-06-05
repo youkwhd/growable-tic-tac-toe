@@ -69,9 +69,8 @@ int main(int argc, char **argv) {
 				board[x][y] = PLAYER_2;
 				/* reset to the first player in order to cycle
 				 *
-				 * NOTE:
-				 *	if you want to add more player, increment `player_turn`
-				 *	append the same `player_turn = 1` to the last player so it can cycle.
+				 * NOTE: if you want to add more player, increment `player_turn`
+				 * append the same `player_turn = 1` to the last player so it can cycle.
 				 */
 				player_turn = 1;
 				break;
