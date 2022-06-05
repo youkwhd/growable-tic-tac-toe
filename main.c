@@ -15,6 +15,7 @@ void init_board(int rows, int cols, int board[rows][cols]);
 void draw_board(int rows, int cols, int board[rows][cols]);
 void get_input(int rows, int cols, int board[rows][cols], char player);
 int is_board_has_space(int rows, int cols, int board[rows][cols]);
+int check_game_winner(int rows, int cols, int board[rows][cols]);
 int check_player_position(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range);
 int check_player_position_horizontal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range);
 int check_player_position_vertical(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range);
@@ -33,8 +34,8 @@ int main(int argc, char **argv) {
 
 	while (!game_over) {
 		if (!is_board_has_space(BOARD_ROWS, BOARD_COLS, board)) {
-			game_over = 1;
 			printf("no one wins!\n");
+			game_over = 1;
 
 			break;
 		}
@@ -79,37 +80,12 @@ int main(int argc, char **argv) {
 		draw_board(BOARD_ROWS, BOARD_COLS, board);
 		printf("\n");
 
-		for (int i = 0; i < BOARD_ROWS; i++) { 
-			for (int j = 0; j < BOARD_COLS; j++) {
-				/* using `switch` just because i need to print
-				 * which player won.
-				 */
-				switch (board[i][j]) {
-					case PLAYER_1:
-						game_over = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
+		int player_winner_num = check_game_winner(BOARD_ROWS, BOARD_COLS, board);
+		if (player_winner_num) {
+			printf("player %d won!\n", player_winner_num);
+			game_over = 1;
 
-						if (game_over) {
-							printf("player 1 won!\n");
-
-							/* this will break both i and j for loop.
-							 */
-							i = BOARD_ROWS;
-							j = BOARD_COLS;
-						}
-
-						break;
-					case PLAYER_2:
-						game_over = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
-
-						if (game_over) {
-							printf("player 2 won!\n");
-							i = BOARD_ROWS;
-							j = BOARD_COLS;
-						}
-
-						break;
-				}
-			}
+			break;
 		}
 	}
 
@@ -155,6 +131,40 @@ int is_board_has_space(int rows, int cols, int board[rows][cols]) {
 		for (int j = 0; j < cols; j++) {
 			if (board[i][j] == ' ') {
 				return 1;
+			}
+		}
+	}
+
+	return 0;
+}
+
+/* checks if a player has won
+ */
+int check_game_winner(int rows, int cols, int board[rows][cols]) {
+	int player_has_won = 0;
+
+	for (int i = 0; i < rows; i++) { 
+		for (int j = 0; j < cols; j++) {
+			/* using `switch` just because i need to 
+			 * correct which player won.
+			 */
+			switch (board[i][j]) {
+				case PLAYER_1:
+					player_has_won = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
+
+					if (player_has_won) {
+						return 1;
+					}
+
+					break;
+				case PLAYER_2:
+					player_has_won = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
+
+					if (player_has_won) {
+						return 2;
+					}
+
+					break;
 			}
 		}
 	}
