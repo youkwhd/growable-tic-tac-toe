@@ -216,6 +216,9 @@ int check_player_position_horizontal(int rows, int cols, int board[rows][cols], 
  */
 int check_player_position_vertical(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
+		/* checks if array selection is out-of-index, and
+		 * also checking if next tile is player or not
+		 */
 		if (curr_row + i >= rows || board[curr_row + i][curr_col] != player) {
 			return 0;
 		}
@@ -236,7 +239,9 @@ int check_player_position_vertical(int rows, int cols, int board[rows][cols], in
  */
 int check_player_position_diagonal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
-		// check if array selection is out-of-index & next tile is player or not
+		/* checks if array selection is out-of-index, and
+		 * also checking if next tile is player or not
+		 */
 		if ((curr_row + i >= rows || curr_col + i >= cols) || (board[curr_row + i][curr_col + i] != player)) {
 			return 0;
 		}
@@ -255,6 +260,9 @@ int check_player_position_diagonal(int rows, int cols, int board[rows][cols], in
  */
 int check_player_position_diagonal_reverse(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
+		/* checks if array selection is out-of-index, and
+		 * also checking if next tile is player or not
+		 */
 		if ((curr_row + i >= rows || curr_col - i < 0) || (board[curr_row + i][curr_col - i] != player)) {
 			return 0;
 		}
