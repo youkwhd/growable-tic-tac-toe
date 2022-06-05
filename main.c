@@ -13,7 +13,7 @@
 
 void init_board(int rows, int cols, int board[rows][cols]);
 void draw_board(int rows, int cols, int board[rows][cols]);
-void get_input(int rows, int cols, int board[rows][cols], char player);
+void get_player_input_and_mark_tile(int rows, int cols, int board[rows][cols]);
 int is_board_has_space(int rows, int cols, int board[rows][cols]);
 int check_game_winner(int rows, int cols, int board[rows][cols]);
 int check_player_position(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range);
@@ -24,9 +24,7 @@ int check_player_position_diagonal_reverse(int rows, int cols, int board[rows][c
 
 int main(int argc, char **argv) {
 	int board[BOARD_ROWS][BOARD_COLS];
-	int x, y;
 	int game_over = 0;
-	int player_turn = 1; // who's turn not how many turns.
 
 	init_board(BOARD_ROWS, BOARD_COLS, board);
 	draw_board(BOARD_ROWS, BOARD_COLS, board);
@@ -40,43 +38,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 
-		printf("player %d's turn\ninput: ", player_turn);
-		scanf("%d %d", &x, &y);
-
-		switch (player_turn) {
-			case 1:
-				/* this will occur when the player hits a space that is not empty
-				 * meaning that it has been marked by someone before.
-				 *
-				 * OR when the player missed input the coordinate and it's "out-of-index".
-				 * 
-				 * thus will reset the player's turn to redo it's move once more,
-				 * until the player marked an empty space.
-				 *
-				 * same applies with other players.
-				 */
-				if (board[x][y] != ' ') {
-					break;
-				}
-
-				board[x][y] = PLAYER_1;
-				player_turn++;
-				break;
-			case 2:
-				if (board[x][y] != ' ') {
-					break;
-				}
-
-				board[x][y] = PLAYER_2;
-				/* reset to the first player in order to cycle
-				 *
-				 * NOTE: if you want to add more player, increment `player_turn`
-				 * append the same `player_turn = 1` to the last player so it can cycle.
-				 */
-				player_turn = 1;
-				break;
-		}
-
+		get_player_input_and_mark_tile(BOARD_ROWS, BOARD_COLS, board);
 		draw_board(BOARD_ROWS, BOARD_COLS, board);
 		printf("\n");
 
@@ -121,6 +83,52 @@ void draw_board(int rows, int cols, int board[rows][cols]) {
 	}
 
 	printf("\n");
+}
+
+/* gets player n input relative to `player_turn`
+ * then append the input into desired input tile
+ */
+void get_player_input_and_mark_tile(int rows, int cols, int board[rows][cols]) {
+	// who's turn not how many turns.
+	static int player_turn = 1; 
+	int x, y;
+
+	printf("player %d's turn\ninput: ", player_turn);
+	scanf("%d %d", &x, &y);
+
+	switch (player_turn) {
+		case 1:
+			/* this will occur when the player hits a space that is not empty
+			 * meaning that it has been marked by someone before.
+			 *
+			 * OR when the player missed input the coordinate and it's "out-of-index".
+			 * 
+			 * thus will reset the player's turn to redo it's move once more,
+			 * until the player marked an empty space.
+			 *
+			 * same applies with other players.
+			 */
+			if (board[x][y] != ' ') {
+				break;
+			}
+
+			board[x][y] = PLAYER_1;
+			player_turn++;
+			break;
+		case 2:
+			if (board[x][y] != ' ') {
+				break;
+			}
+
+			board[x][y] = PLAYER_2;
+			/* reset to the first player in order to cycle
+			 *
+			 * NOTE: if you want to add more player, increment `player_turn`
+			 * append the same `player_turn = 1` to the last player so it can cycle.
+			 */
+			player_turn = 1;
+			break;
+	}
 }
 
 /* checks the board if it has any space left.
