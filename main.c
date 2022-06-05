@@ -96,30 +96,26 @@ void get_player_input_and_mark_tile(int rows, int cols, int board[rows][cols]) {
 	printf("player %d's turn\ninput: ", player_turn);
 	scanf("%d %d", &x, &y);
 
+	/* this will occur when the player hits a space that is not empty
+	 * meaning that it has been marked by someone before.
+	 *
+	 * OR when the player missed input the coordinate and it's "out-of-index".
+	 * 
+	 * thus will reset the player's turn to redo it's move once more,
+	 * until the player marked an empty space.
+	 *
+	 * same applies with other players.
+	 */
+	if (board[x][y] != ' ') {
+		return;
+	}
+
 	switch (player_turn) {
 		case 1:
-			/* this will occur when the player hits a space that is not empty
-			 * meaning that it has been marked by someone before.
-			 *
-			 * OR when the player missed input the coordinate and it's "out-of-index".
-			 * 
-			 * thus will reset the player's turn to redo it's move once more,
-			 * until the player marked an empty space.
-			 *
-			 * same applies with other players.
-			 */
-			if (board[x][y] != ' ') {
-				break;
-			}
-
 			board[x][y] = PLAYER_1;
 			player_turn++;
 			break;
 		case 2:
-			if (board[x][y] != ' ') {
-				break;
-			}
-
 			board[x][y] = PLAYER_2;
 			/* reset to the first player in order to cycle
 			 *
