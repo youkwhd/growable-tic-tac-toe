@@ -3,9 +3,9 @@
 
 /* initialize the board with spaces
  */
-void init_board(int rows, int cols, int board[rows][cols]) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
+void init_board(char board[BOARD_ROWS][BOARD_COLS]) {
+	for (int i = 0; i < BOARD_ROWS; i++) {
+		for (int j = 0; j < BOARD_COLS; j++) {
 			board[i][j] = ' ';
 		}
 	}
@@ -14,10 +14,10 @@ void init_board(int rows, int cols, int board[rows][cols]) {
 /* draws the board with a coordinate
  * for player to use when inserting inputs
  */
-void draw_board(int rows, int cols, int board[rows][cols]) {
+void draw_board(char board[BOARD_ROWS][BOARD_COLS]) {
 	printf("\n");
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
+	for (int i = 0; i < BOARD_ROWS; i++) {
+		for (int j = 0; j < BOARD_COLS; j++) {
 			printf(" %c |", board[i][j]);
 		}
 		printf("   [%d]\n", i);
@@ -25,7 +25,7 @@ void draw_board(int rows, int cols, int board[rows][cols]) {
 
 	printf("\n");
 
-	for (int i = 0; i < cols; i++) {
+	for (int i = 0; i < BOARD_COLS; i++) {
 		printf("[%d] ", i);
 	}
 
@@ -35,7 +35,7 @@ void draw_board(int rows, int cols, int board[rows][cols]) {
 /* gets player n input relative to `player_turn`
  * then append the input into desired input tile
  */
-void get_player_input_and_mark_tile(int rows, int cols, int board[rows][cols]) {
+void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
 	// who's turn not how many turns.
 	static int player_turn = 1; 
 	int x, y;
@@ -77,9 +77,9 @@ void get_player_input_and_mark_tile(int rows, int cols, int board[rows][cols]) {
 /* checks the board if it has any space left.
  * 1 for ok, 0 for none.
  */
-int is_board_has_space(int rows, int cols, int board[rows][cols]) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
+int is_board_has_space(char board[BOARD_ROWS][BOARD_COLS]) {
+	for (int i = 0; i < BOARD_ROWS; i++) {
+		for (int j = 0; j < BOARD_COLS; j++) {
 			if (board[i][j] == ' ') {
 				return 1;
 			}
@@ -91,26 +91,24 @@ int is_board_has_space(int rows, int cols, int board[rows][cols]) {
 
 /* checks if a player has won
  */
-int check_game_winner(int rows, int cols, int board[rows][cols]) {
+int check_game_winner(char board[BOARD_ROWS][BOARD_COLS]) {
 	int player_has_won = 0;
 
-	for (int i = 0; i < rows; i++) { 
-		for (int j = 0; j < cols; j++) {
+	for (int i = 0; i < BOARD_ROWS; i++) { 
+		for (int j = 0; j < BOARD_COLS; j++) {
 			/* using `switch` just because i need to 
 			 * correct which player won.
 			 */
 			switch (board[i][j]) {
 				case PLAYER_1:
-					player_has_won = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
-
+					player_has_won = check_player_position(board, i, j, board[i][j], BOARD_CHECK_RANGE);
 					if (player_has_won) {
 						return 1;
 					}
 
 					break;
 				case PLAYER_2:
-					player_has_won = check_player_position(BOARD_ROWS, BOARD_COLS, board, i, j, board[i][j], BOARD_CHECK_RANGE);
-
+					player_has_won = check_player_position(board, i, j, board[i][j], BOARD_CHECK_RANGE);
 					if (player_has_won) {
 						return 2;
 					}
@@ -128,8 +126,8 @@ int check_game_winner(int rows, int cols, int board[rows][cols]) {
  *
  * 1 -> found winner, 0 -> no winner found
  */
-int check_player_position(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
-	int (*check_func[4])(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) = {
+int check_player_position(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) {
+	int (*check_func[4])(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) = {
 		check_player_position_horizontal,
 		check_player_position_vertical,
 		check_player_position_diagonal,
@@ -137,7 +135,7 @@ int check_player_position(int rows, int cols, int board[rows][cols], int curr_ro
 	};
 
 	for (int i = 0; i < 4; i++) {
-		int found_solution = check_func[i](rows, cols, board, curr_row, curr_col, player, check_range);
+		int found_solution = check_func[i](board, curr_row, curr_col, player, check_range);
 		if (found_solution) return 1; 
 	}
 
@@ -154,12 +152,12 @@ int check_player_position(int rows, int cols, int board[rows][cols], int curr_ro
  *   |   |   |   
  *   |   |   |   
  */
-int check_player_position_horizontal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
+int check_player_position_horizontal(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
 		/* checks if array selection is out-of-index, and
 		 * also checking if next tile is player or not
 		 */
-		if (curr_col + i >= cols || board[curr_row][curr_col + i] != player) {
+		if (curr_col + i >= BOARD_COLS || board[curr_row][curr_col + i] != player) {
 			return 0;
 		}
 	}
@@ -175,12 +173,12 @@ int check_player_position_horizontal(int rows, int cols, int board[rows][cols], 
  *   |   | X |   
  *   |   | X |   
  */
-int check_player_position_vertical(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
+int check_player_position_vertical(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
 		/* checks if array selection is out-of-index, and
 		 * also checking if next tile is player or not
 		 */
-		if (curr_row + i >= rows || board[curr_row + i][curr_col] != player) {
+		if (curr_row + i >= BOARD_ROWS || board[curr_row + i][curr_col] != player) {
 			return 0;
 		}
 	}
@@ -198,12 +196,12 @@ int check_player_position_vertical(int rows, int cols, int board[rows][cols], in
  *   | X |   |   
  *   |   | X |   
  */
-int check_player_position_diagonal(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
+int check_player_position_diagonal(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
 		/* checks if array selection is out-of-index, and
 		 * also checking if next tile is player or not
 		 */
-		if ((curr_row + i >= rows || curr_col + i >= cols) || (board[curr_row + i][curr_col + i] != player)) {
+		if ((curr_row + i >= BOARD_ROWS || curr_col + i >= BOARD_COLS) || (board[curr_row + i][curr_col + i] != player)) {
 			return 0;
 		}
 	}
@@ -219,12 +217,12 @@ int check_player_position_diagonal(int rows, int cols, int board[rows][cols], in
  *   | X |   |   
  * X |   |   |   
  */
-int check_player_position_diagonal_reverse(int rows, int cols, int board[rows][cols], int curr_row, int curr_col, char player, int check_range) {
+int check_player_position_diagonal_reverse(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player, int check_range) {
 	for (int i = 0; i < check_range; i++) { 
 		/* checks if array selection is out-of-index, and
 		 * also checking if next tile is player or not
 		 */
-		if ((curr_row + i >= rows || curr_col - i < 0) || (board[curr_row + i][curr_col - i] != player)) {
+		if ((curr_row + i >= BOARD_ROWS || curr_col - i < 0) || (board[curr_row + i][curr_col - i] != player)) {
 			return 0;
 		}
 	}
