@@ -4,6 +4,9 @@
 #define PLAYER_1 'X'
 #define PLAYER_2 'O'
 
+/* size of board
+ * following matrix rules for it's row and column
+ */
 #define BOARD_ROWS 3
 #define BOARD_COLS 3
 
