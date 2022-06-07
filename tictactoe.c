@@ -4,7 +4,7 @@
 #define PLAYER_1 'X'
 #define PLAYER_2 'O'
 
-/* gets player n input relative to `player_turn`
+/* gets player x y input, player is relative to `player_turn`
  * then append the input into desired input tile
  */
 void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
