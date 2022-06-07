@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "board.h"
 
+#define PLAYER_1 'X'
+#define PLAYER_2 'O'
+
 /* gets player n input relative to `player_turn`
  * then append the input into desired input tile
  */

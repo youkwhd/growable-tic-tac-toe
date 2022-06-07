@@ -1,9 +1,6 @@
 #ifndef TIC_TAC_TOE_BOARD_H
 #define TIC_TAC_TOE_BOARD_H
 
-#define PLAYER_1 'X'
-#define PLAYER_2 'O'
-
 /* size of board
  * following matrix rules for it's row and column
  */
