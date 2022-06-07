@@ -9,8 +9,9 @@ DEPS = board.h
 all: tictactoe
 
 tictactoe: $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
+# TODO: header file causes all files to recompile
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
