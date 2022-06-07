@@ -9,3 +9,5 @@ Possible things to customize:
 * Board size
 * New player slot
 * Game win condition
+
+Or consider using patches, available at patches/ directory. Each patch is pretty self-explanatory.
