@@ -3,14 +3,15 @@ CFLAGS = -Wall
 
 BIN = tictactoe
 SRC = tictactoe.c board.c
-OBJ = $(SRC:.c=.o)
+OBJ = tictactoe.o board.o
+DEPS = board.h
 
 all: tictactoe
 
 tictactoe: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
