@@ -8,10 +8,10 @@ void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
 	/* who's turn not how many turns.
 	 */
 	static int player_turn = 1; 
-	int x, y;
+	int row, col;
 
 	printf("player %d's turn\ninput: ", player_turn);
-	scanf("%d %d", &x, &y);
+	scanf("%d %d", &col, &row);
 
 	/* this will occur when the player hits a space that is not empty
 	 * meaning that it has been marked by someone before.
@@ -23,17 +23,17 @@ void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
 	 *
 	 * same applies with other players.
 	 */
-	if (board[x][y] != ' ') {
+	if (board[row][col] != ' ' || row >= BOARD_ROWS || col >= BOARD_COLS) {
 		return;
 	}
 
 	switch (player_turn) {
 		case 1:
-			board[x][y] = PLAYER_1;
+			board[row][col] = PLAYER_1;
 			player_turn++;
 			break;
 		case 2:
-			board[x][y] = PLAYER_2;
+			board[row][col] = PLAYER_2;
 			/* reset to the first player in order to cycle
 			 *
 			 * NOTE: if you want to add more player, increment `player_turn`
