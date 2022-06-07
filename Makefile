@@ -5,7 +5,7 @@ BIN = tictactoe
 SRC = tictactoe.c board.c
 OBJ = $(SRC:.c=.o)
 
-all: $(BIN)
+all: tictactoe
 
 tictactoe: $(OBJ)
 	@echo "[DEBUG] linking all objects into binary"
