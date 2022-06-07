@@ -1,7 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
 
-BIN = tictactoe
 SRC = tictactoe.c board.c
 OBJ = tictactoe.o board.o
 DEPS = board.h
@@ -16,4 +15,4 @@ tictactoe: $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(BIN) *.o
+	rm -rf tictactoe *.o
