@@ -1,0 +1,42 @@
+diff --git a/tictactoe.c b/tictactoe.c
+index 54b76e6..2360558 100644
+--- a/tictactoe.c
++++ b/tictactoe.c
+@@ -3,6 +3,7 @@
+ 
+ #define PLAYER_1 'X'
+ #define PLAYER_2 'O'
++#define PLAYER_3 'R'
+ 
+ /* gets player n input relative to `player_turn`
+  * then append the input into desired input tile
+@@ -37,11 +38,10 @@ void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
+ 			break;
+ 		case 2:
+ 			board[row][col] = PLAYER_2;
+-			/* reset to the first player in order to cycle
+-			 *
+-			 * NOTE: if you want to add more player, increment `player_turn`
+-			 * append the same `player_turn = 1` to the last player so it can cycle.
+-			 */
++			player_turn++;
++			break;
++		case 3:
++			board[row][col] = PLAYER_3;
+ 			player_turn = 1;
+ 			break;
+ 	}
+@@ -72,6 +72,13 @@ int check_game_winner(char board[BOARD_ROWS][BOARD_COLS]) {
+ 						return 2;
+ 					}
+ 
++					break;
++				case PLAYER_3:
++					player_has_won = check_tile_position(board, i, j, board[i][j]);
++					if (player_has_won) {
++						return 3;
++					}
++
+ 					break;
+ 			}
+ 		}
