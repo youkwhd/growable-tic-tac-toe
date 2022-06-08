@@ -4,7 +4,7 @@
 #define PLAYER_1 'X'
 #define PLAYER_2 'O'
 
-/* gets player x y input, player is relative to `player_turn`
+/* gets player y x input, player is relative to `player_turn`
  * then append the input into desired input tile
  */
 void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
@@ -14,7 +14,7 @@ void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
     int row, col;
 
     printf("player %d's turn\ninput: ", player_turn);
-    scanf("%d %d", &col, &row);
+    scanf("%d %d", &row, &col);
 
     /* this will occur when the player hits a space that is not empty
      * meaning that it has been marked by someone before.
