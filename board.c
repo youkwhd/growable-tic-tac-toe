@@ -15,19 +15,19 @@ void init_board(char board[BOARD_ROWS][BOARD_COLS]) {
  * for player to use when inserting inputs
  */
 void draw_board(char board[BOARD_ROWS][BOARD_COLS]) {
+    printf("\n  ");
+    for (int i = 0; i < BOARD_COLS; i++) {
+        printf(" [%d]", i);
+    }
     printf("\n");
+
     for (int i = 0; i < BOARD_ROWS; i++) {
+        printf("[%d]", i);
         for (int j = 0; j < BOARD_COLS; j++) {
             printf(" %c |", board[i][j]);
         }
-        printf("   [%d]\n", i);
+        printf("\n");
     }
-
-    printf("\n");
-    for (int i = 0; i < BOARD_COLS; i++) {
-        printf("[%d] ", i);
-    }
-
     printf("\n");
 }
 
