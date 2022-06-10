@@ -81,8 +81,11 @@ int check_tile_position_horizontal(char board[BOARD_ROWS][BOARD_COLS], int curr_
     for (int i = 0; i < BOARD_CHECK_RANGE; i++) { 
         /* checks if array selection is out-of-index, and
          * also checking if next tile is player or not
+         *
+         * so does for other check_tile* functions
          */
-        if (curr_col + i >= BOARD_COLS || board[curr_row][curr_col + i] != player) {
+        if (curr_col + i >= BOARD_COLS ||
+            board[curr_row][curr_col + i] != player) {
             return 0;
         }
     }
@@ -100,10 +103,8 @@ int check_tile_position_horizontal(char board[BOARD_ROWS][BOARD_COLS], int curr_
  */
 int check_tile_position_vertical(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player) {
     for (int i = 0; i < BOARD_CHECK_RANGE; i++) { 
-        /* checks if array selection is out-of-index, and
-         * also checking if next tile is player or not
-         */
-        if (curr_row + i >= BOARD_ROWS || board[curr_row + i][curr_col] != player) {
+        if (curr_row + i >= BOARD_ROWS ||
+            board[curr_row + i][curr_col] != player) {
             return 0;
         }
     }
@@ -123,10 +124,8 @@ int check_tile_position_vertical(char board[BOARD_ROWS][BOARD_COLS], int curr_ro
  */
 int check_tile_position_diagonal(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player) {
     for (int i = 0; i < BOARD_CHECK_RANGE; i++) { 
-        /* checks if array selection is out-of-index, and
-         * also checking if next tile is player or not
-         */
-        if ((curr_row + i >= BOARD_ROWS || curr_col + i >= BOARD_COLS) || (board[curr_row + i][curr_col + i] != player)) {
+        if (curr_row + i >= BOARD_ROWS || curr_col + i >= BOARD_COLS ||
+            board[curr_row + i][curr_col + i] != player) {
             return 0;
         }
     }
@@ -144,10 +143,8 @@ int check_tile_position_diagonal(char board[BOARD_ROWS][BOARD_COLS], int curr_ro
  */
 int check_tile_position_diagonal_reverse(char board[BOARD_ROWS][BOARD_COLS], int curr_row, int curr_col, char player) {
     for (int i = 0; i < BOARD_CHECK_RANGE; i++) { 
-        /* checks if array selection is out-of-index, and
-         * also checking if next tile is player or not
-         */
-        if ((curr_row + i >= BOARD_ROWS || curr_col - i < 0) || (board[curr_row + i][curr_col - i] != player)) {
+        if (curr_row + i >= BOARD_ROWS || curr_col - i < 0 ||
+            board[curr_row + i][curr_col - i] != player) {
             return 0;
         }
     }
