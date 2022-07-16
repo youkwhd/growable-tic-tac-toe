@@ -7,7 +7,8 @@
 /* gets player y x input, player is relative to `player_turn`
  * then append the input into desired input tile
  */
-void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
+void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS])
+{
     /* who's turn not how many turns.
      */
     static int player_turn = 1; 
@@ -50,7 +51,8 @@ void get_player_input_and_mark_tile(char board[BOARD_ROWS][BOARD_COLS]) {
 /* checks if a player has 
  * found a solution (has won)
  */
-int check_game_winner(char board[BOARD_ROWS][BOARD_COLS]) {
+int check_game_winner(char board[BOARD_ROWS][BOARD_COLS])
+{
     int player_has_won = 0;
 
     for (int i = 0; i < BOARD_ROWS; i++) { 
@@ -80,7 +82,8 @@ int check_game_winner(char board[BOARD_ROWS][BOARD_COLS]) {
     return 0;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     char board[BOARD_ROWS][BOARD_COLS];
 
     init_board(board);
